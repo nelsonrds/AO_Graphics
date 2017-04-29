@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "fs": "0.0.1-security",
+    "mongoose": "^4.9.6",
+    "mv": "^2.1.1",
+    "nodemon": "^1.11.0",
+    "validator": "^7.0.0",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {},
+  "description": ""
+}
