@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 
   var dataSchema = mongoose.Schema({
     filename : String,
+    dateDay : String,
+    dateMonth : String,
+    dateYear : String,
+    hour : String,
     data: [{
       leds : [{value: String, chave: String}],
       btn : [{value: String, chave: String}],
@@ -18,8 +22,6 @@ var mongoose = require('mongoose');
       pw : [{value: String, chave: String}],
       eno : [{value: String, chave: String}],
       x4fp : [{value: String, chave: String}],
-      date : String,
-      hour : String
     }]
   });
 
@@ -35,4 +37,8 @@ module.exports.addData = function (data, callback) {
 
 module.exports.getDataByName = function (data, callback) {
     Data.find({filename:data},callback);
+};
+
+module.exports.getDataByLedsDay = function (data, callback) {
+  Data.find({dateDay:data});
 };

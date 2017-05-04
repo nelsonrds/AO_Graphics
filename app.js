@@ -23,7 +23,100 @@ app.use(bodyParser.urlencoded({
 
 
 app.get('/', function(req, res){
-   res.sendfile('index.html', { root: __dirname} );
+   res.sendFile('index.html', { root: __dirname} );
+});
+
+app.get('/getData.js', function(req, res){
+  res.sendFile('getData.js', {root: __dirname});
+});
+
+app.get('/api/data/filename', function(req, res){
+  Data.getData(function(err, data){
+    if(err){
+      throw err;
+    }
+    var result = [];
+    data.forEach(function(u) {
+      result.push(u.filename);
+    });
+    res.json({result});
+  });
+});
+
+app.get('/api/data/day', function(req, res){
+  Data.getData(function(err, data){
+    if(err){
+      throw err;
+    }
+    var result = [];
+    data.forEach(function(u){
+      result.push(u.dateDay);
+    });
+    res.json({result});
+  });
+});
+
+app.get('/api/data/month', function(req, res){
+  Data.getData(function(err, data){
+    if(err){
+      throw err;
+    }
+    var result = [];
+    data.forEach(function(u){
+      result.push(u.dateMonth);
+    });
+    res.json({result});
+  });
+});
+
+app.get('/api/data/year', function(req, res){
+  Data.getData(function(err, data){
+    if(err){
+      throw err;
+    }
+    var result = [];
+    data.forEach(function(u){
+      result.push(u.dateYear);
+    });
+    res.json({result});
+  });
+});
+
+app.get('/api/data/fields', function(req, res){
+  Data.getData(function(err, data){
+    if(err){
+      throw err;
+    }
+
+    for(var i in data){
+      console.log(i); // alerts key
+      console.log(data[i]); //alerts key's value
+    }
+
+    var result = [];
+    data.forEach(function(u){
+      result.push(u);
+
+
+    });
+    res.json({result});
+  });
+});
+
+app.get('/api/data/leds/:dia', function(req, res){
+  Data.getData(function(err, data){
+    if(err){
+      throw err;
+    }
+
+    var result = [];
+    data.forEach(function(u){
+      if(u.dateDay == req.params.dia){
+          result.push(u.data[0].leds);
+      }
+    });
+    res.json({result});
+  });
 });
 
 
@@ -85,12 +178,14 @@ function readDirectory(){
               var arrayEno = [];
               var arrayX4fp = [];
               var data;
+              var dataDay;
+              var dataMonth;
+              var dataYeah;
               var hora;
               for(var key in result.response) {
 
                 //console.log(key);
                 var chave = key;
-                console.log(chave);
                 //console.log(result.response[key]);
                 if(key.startsWith('led')){
                   arrayLed.push({value : result.response[key], chave: key});
@@ -124,13 +219,19 @@ function readDirectory(){
                 }else if(key.startsWith('x4fp')){
                   arrayX4fp.push({value : result.response[key], chave: key});
                 }else if(key.startsWith('date')){
-                  data = result.response[key];
+                  dataDay = result.response[key].toString().slice(0,2);
+                  dataMonth = result.response[key].toString().slice(3,5);
+                  dataYear = result.response[key].toString().slice(6,10);
                 }else if(key.startsWith('heure')){
                   hora = result.response[key];
                 }
               }
               object = {
                 filename : file,
+                dateDay : dataDay,
+                dateMonth : dataMonth,
+                dateYear : dataYear,
+                hour : hora,
                 data: [{
                   leds : arrayLed,
                   btn : arrayBtn,
@@ -146,8 +247,6 @@ function readDirectory(){
                   pw : arrayPw,
                   eno : arrayEno,
                   x4fp : arrayX4fp,
-                  date : data,
-                  hour : hora
                 }]
               }
 
@@ -165,7 +264,7 @@ function readDirectory(){
           });
         }else{
           //existe!
-          console.log("Este Ficheiro já existe!");
+          //console.log("Este Ficheiro já existe!");
         }
       });
 
