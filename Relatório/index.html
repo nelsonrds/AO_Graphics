@@ -13,9 +13,6 @@
     <script src="getData.js"></script>
   </head>
   <body>
-
-
-
     <div class="container">
       <br>
       <div style="background: #000000;">
@@ -23,18 +20,30 @@
         <strong><center><p style="color: #FFFFFF;"> Gráficos AO </p><center></strong>
         <br>
       </div>
+      <div style="background: #c0c0c0">
+        <div class="inputs">
+        </div>
+        <form id="myform">
+        </form>
+      </div>
+      <br>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Selecionar Gráficos
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu addcharts">
+        </ul>
+      </div>
       <br>
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-          <div>
+          <div class="grafico">
             <center><canvas id="myChart" width="400" height="200"></canvas></center>
           </div>
         </div>
-
       </div>
     </br>
-    </br></br></br></br></br></br></br></br>
+    </br></br></br></br></br>
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
@@ -66,5 +75,4 @@
       </div>
     </div>
   </body>
-
 </html>

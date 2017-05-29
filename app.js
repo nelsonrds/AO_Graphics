@@ -119,6 +119,52 @@ app.get('/api/data/leds/:dia', function(req, res){
   });
 });
 
+app.get('/api/data/day/:dia', function(req, res){
+  Data.getData(function(err, data){
+    if(err){
+      throw err;
+    }
+
+    var result = [];
+    data.forEach(function(u){
+      if(u.dateDay == req.params.dia){
+          result.push(u.data[0]);
+      }
+    });
+    res.json({result});
+  });
+});
+
+app.get('/api/data/month/:mes', function(req, res){
+  Data.getData(function(err, data){
+    if(err){
+      throw err;
+    }
+
+    var result = [];
+    data.forEach(function(u){
+      if(u.dateMonth == req.params.mes){
+          result.push(u.data[0]);
+      }
+    });
+    res.json({result});
+  });
+});
+app.get('/api/data/year/:ano', function(req, res){
+  Data.getData(function(err, data){
+    if(err){
+      throw err;
+    }
+
+    var result = [];
+    data.forEach(function(u){
+      if(u.dateYear == req.params.ano){
+          result.push(u.data[0]);
+      }
+    });
+    res.json({result});
+  });
+});
 
 app.get('/api/data',function (req, res) {
     Data.getData(function (err, data) {
